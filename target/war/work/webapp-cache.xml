@@ -4,23 +4,42 @@
       <string>currentBuild</string>
       <path-set>
         <pathsSet class="linked-hash-set">
-          <string>bootstrap/css/bootstrap-theme.css</string>
-          <string>bootstrap/css/bootstrap-theme.css.map</string>
-          <string>bootstrap/css/bootstrap-theme.min.css</string>
-          <string>bootstrap/css/bootstrap.css</string>
-          <string>bootstrap/css/bootstrap.css.map</string>
-          <string>bootstrap/css/bootstrap.min.css</string>
-          <string>bootstrap/js/bootstrap.js</string>
-          <string>bootstrap/js/bootstrap.min.js</string>
+          <string>css/bootstrap.css</string>
+          <string>css/bootstrap.min.css</string>
+          <string>css/plugins/dataTables.bootstrap.css</string>
+          <string>css/plugins/metisMenu/metisMenu.css</string>
+          <string>css/plugins/metisMenu/metisMenu.min.css</string>
+          <string>css/plugins/morris.css</string>
+          <string>css/plugins/social-buttons.css</string>
+          <string>css/plugins/timeline.css</string>
+          <string>css/sb-admin-2.css</string>
           <string>index.html</string>
+          <string>js/bootstrap.js</string>
+          <string>js/bootstrap.min.js</string>
           <string>js/filemanager.js</string>
-          <string>js/jquery-1.11.1.min.js</string>
+          <string>js/jquery-1.11.0.js</string>
           <string>js/jquery.form.js</string>
+          <string>js/plugins/dataTables/dataTables.bootstrap.js</string>
+          <string>js/plugins/dataTables/jquery.dataTables.js</string>
+          <string>js/plugins/flot/excanvas.min.js</string>
+          <string>js/plugins/flot/flot-data.js</string>
+          <string>js/plugins/flot/jquery.flot.js</string>
+          <string>js/plugins/flot/jquery.flot.pie.js</string>
+          <string>js/plugins/flot/jquery.flot.resize.js</string>
+          <string>js/plugins/flot/jquery.flot.tooltip.min.js</string>
+          <string>js/plugins/metisMenu/metisMenu.js</string>
+          <string>js/plugins/metisMenu/metisMenu.min.js</string>
+          <string>js/plugins/morris/morris-data.js</string>
+          <string>js/plugins/morris/morris.js</string>
+          <string>js/plugins/morris/morris.min.js</string>
+          <string>js/plugins/morris/raphael.min.js</string>
+          <string>js/sb-admin-2.js</string>
           <string>resources/style.css</string>
           <string>WEB-INF/rest-servlet.xml</string>
           <string>WEB-INF/views/home.jsp</string>
           <string>WEB-INF/web.xml</string>
           <string>WEB-INF/web.xml.bk</string>
+          <string>xml/clientes-vacio.xml</string>
           <string>WEB-INF/classes/io/uned/proyectoFinal/config/MvcConfiguration.class</string>
           <string>WEB-INF/classes/io/uned/proyectoFinal/controller/HomeController.class</string>
           <string>WEB-INF/classes/io/uned/proyectoFinal/controller/RestController.class</string>

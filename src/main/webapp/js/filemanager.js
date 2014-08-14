@@ -1,31 +1,33 @@
-//using jquery.form.js
-function uploadJqueryForm(){
-    $('#result').html('');
- 
-   $("#form1").ajaxForm({
-    success:function(data) { 
-          $('#result').html(data);
-     },
-     dataType:"text"
-   }).submit();
-}
+$(document).ready(function() {
+	$('#submitButton').on('click', function(e) {
+		e.preventDefault();
+		$('#result').html('');
 
-//using FormData() object
-function uploadFormData(){
-    $('#result').html('');
- 
-  var oMyForm = new FormData();
-  oMyForm.append("file", file2.files[0]);
- 
-  $.ajax({	  
-    url: 'http://localhost:8080/iouned/rest/controller/upload',
-    data: oMyForm,
-    dataType: 'text',
-    processData: false,
-    contentType: false,
-    type: 'POST',
-    success: function(data){
-      $('#result').html(data);
-    }
-  });
-}
+		var file = $("#file").val();
+											
+		if (file == '') {
+			$("#result").addClass("alert-warning");
+			$("#result").html("Por favor seleccione un archivo primero.");
+			e.preventDefault();
+		} else {
+			// Check file extension
+			var ext = file.split('.').pop().toLowerCase(); 
+																														
+			if ($.inArray(ext, [ 'xml' ]) == -1) {
+				$("#result").addClass("alert-warning");
+				$("#result").html("Seleccione un archivo valido, solo se permite archivos de extension XML.");
+				e.preventDefault();
+			} else {
+				$("#result").removeClass("alert-warning");
+				
+				$("#uploadForm").ajaxForm({
+					success : function(data) {
+						$('#result').html(data);
+						$("#result").addClass("alert-info");
+					},
+					dataType : "text"
+				}).submit();
+			}
+		}		
+	});
+});

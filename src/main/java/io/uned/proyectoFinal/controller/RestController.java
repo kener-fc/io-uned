@@ -1,9 +1,16 @@
 package io.uned.proyectoFinal.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -14,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.util.FileCopyUtils;
+import org.xml.sax.SAXException;
 
 import io.uned.proyectoFinal.model.UploadedFile;
 
@@ -28,9 +36,9 @@ public class RestController {
 		ufile = new UploadedFile();
 	}
 
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/procesarArchivo", method = RequestMethod.POST)
 	public @ResponseBody
-	String upload(MultipartHttpServletRequest request,
+	String procesarArchivo(MultipartHttpServletRequest request,
 			HttpServletResponse response) {
 
 		// 0. notice, we have used MultipartHttpServletRequest
@@ -46,16 +54,18 @@ public class RestController {
 			ufile.length = mpf.getBytes().length;
 			ufile.bytes = mpf.getBytes();
 			ufile.type = mpf.getContentType();
-			ufile.name = mpf.getOriginalFilename();
+			ufile.name = mpf.getOriginalFilename();		
+						
+			System.out.println(new StreamSource(mpf.getInputStream()));
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 		
 		// we are using getTimeInMillis to avoid server cached image
 
-		return "loaded";
+		return "loaded: " + ufile.name + "- type: " + ufile.type ;
 
 	}
 }

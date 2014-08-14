@@ -1,0 +1,23 @@
+<Clientes>
+    <Cliente>
+        <IdCliente></IdCliente>
+        <Nombre></Nombre>
+        <Apellido1></Apellido1>
+        <Apellido2></Apellido2>
+        <Creditos>
+            <Credito>
+                <IdCredito></IdCredito>
+                <Monto></Monto>
+                <FecFormalizacion></FecFormalizacion>
+                <Interes></Interes>
+                <Plazo></Plazo>
+                <Abonos>
+                    <Abono>
+                        <FecAbono></FecAbono>
+                        <Monto></Monto>
+                    </Abono>
+                </Abonos>
+            </Credito>
+        </Creditos>
+    </Cliente>
+</Clientes>
