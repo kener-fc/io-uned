@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:SummaryCart xmlns:ns2="SummaryCart" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="SummaryCart.xsd">
+    <SummaryElement type="test">
+        <order>1</order>
+        <id>A</id>
+        <displayName>B</displayName>
+        <subElements>
+            <order>1</order>
+            <id>Preactivation</id>
+            <displayName>Preactivation</displayName>
+            <maxlines>0</maxlines>
+        </subElements>
+        <maxlines>1</maxlines>
+    </SummaryElement>
+	<SummaryElement type="test2">
+        <order>2</order>
+        <id>A</id>
+        <displayName>A</displayName>
+        <subElements>
+            <order>1</order>
+            <id>VELEZ</id>
+            <displayName>VELEZ</displayName>
+            <maxlines>0</maxlines>
+        </subElements>
+        <maxlines>1</maxlines>
+    </SummaryElement>
+</ns2:SummaryCart>

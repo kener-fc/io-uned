@@ -23,6 +23,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.util.FileCopyUtils;
 import org.xml.sax.SAXException;
 
+import java.io.File;
+import javax.xml.bind.*;
+
+import io.uned.proyectoFinal.model.SummaryCart;
+import io.uned.proyectoFinal.model.SummaryElement;
 import io.uned.proyectoFinal.model.UploadedFile;
 
 @Controller
@@ -56,9 +61,27 @@ public class RestController {
 			ufile.type = mpf.getContentType();
 			ufile.name = mpf.getOriginalFilename();		
 						
-			System.out.println(new StreamSource(mpf.getInputStream()));
+			StreamSource streamSource = new StreamSource(mpf.getInputStream());
+			
+		     JAXBContext jc = JAXBContext.newInstance(SummaryCart.class);
+		     Unmarshaller unmarshaller = jc.createUnmarshaller();
+             SummaryCart sc = (SummaryCart) unmarshaller.unmarshal(streamSource);
+             
+             if(sc == null){
+            	return "error"; 
+             }             
+             System.out.println("cantidad de summaryElements : "+ sc.getSummaryElementList().size());
+             
+             SummaryElement summaryElement1 = sc.getSummaryElementList().get(0);
+             
+             System.out.println("summaryElement1  getDisplayName: "+summaryElement1.getDisplayName());
+             
+             
 
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
