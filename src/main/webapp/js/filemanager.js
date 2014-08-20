@@ -22,6 +22,7 @@ $(document).ready(function() {
 				
 				$("#uploadForm").ajaxForm({
 					success : function(data) {
+						console.log(data);
 						$('#result').html(data);
 						$("#result").addClass("alert-info");
 					},

@@ -1,40 +1,39 @@
 package io.uned.proyectoFinal.controller;
 
-import java.io.ByteArrayInputStream;
+import io.uned.proyectoFinal.model.Abono;
+import io.uned.proyectoFinal.model.Cliente;
+import io.uned.proyectoFinal.model.Clientes;
+import io.uned.proyectoFinal.model.Credito;
+import io.uned.proyectoFinal.model.UploadedFile;
+import io.uned.proyectoFinal.util.Util;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.Document;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.UnmarshalException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.util.FileCopyUtils;
-import org.xml.sax.SAXException;
-
-import java.io.File;
-import javax.xml.bind.*;
-
-import io.uned.proyectoFinal.model.SummaryCart;
-import io.uned.proyectoFinal.model.SummaryElement;
-import io.uned.proyectoFinal.model.UploadedFile;
+import org.xml.sax.SAXParseException;
 
 @Controller
 @RequestMapping("/controller")
 public class RestController {
 
-	UploadedFile ufile;
+	UploadedFile ufile; 
+	
+	@Autowired
+	private Util util;
 
 	public RestController() {
 		System.out.println("init RestController");
@@ -44,7 +43,7 @@ public class RestController {
 	@RequestMapping(value = "/procesarArchivo", method = RequestMethod.POST)
 	public @ResponseBody
 	String procesarArchivo(MultipartHttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws SAXParseException {
 
 		// 0. notice, we have used MultipartHttpServletRequest
 
@@ -63,32 +62,56 @@ public class RestController {
 						
 			StreamSource streamSource = new StreamSource(mpf.getInputStream());
 			
-		     JAXBContext jc = JAXBContext.newInstance(SummaryCart.class);
-		     Unmarshaller unmarshaller = jc.createUnmarshaller();
-             SummaryCart sc = (SummaryCart) unmarshaller.unmarshal(streamSource);
-             
-             if(sc == null){
-            	return "error"; 
-             }             
-             System.out.println("cantidad de summaryElements : "+ sc.getSummaryElementList().size());
-             
-             SummaryElement summaryElement1 = sc.getSummaryElementList().get(0);
-             
-             System.out.println("summaryElement1  getDisplayName: "+summaryElement1.getDisplayName());
+		    
+			JAXBContext jc = JAXBContext.newInstance(Clientes.class);
+		    Unmarshaller unmarshaller = jc.createUnmarshaller();
+		    Clientes clientes = (Clientes) unmarshaller.unmarshal(streamSource);
+            	     
+		     if(clientes == null){
+		    	 return "error";
+		     }
+		     
+		     System.out.println("cliente : "+ clientes.getList().size());
+		     
+		     Cliente cliente = (Cliente)clientes.getList().get(0);
+		     System.out.println("cliente : "+ cliente.getNombre() + " "+cliente.getApellido1()+" "+cliente.getApellido2());
+		     
+		     if(cliente.getCreditos() == null){
+		    	 System.out.println("cliente credito null");
+		     }
+		     
+		     Credito credito = (Credito) cliente.getCreditos().get(0);
+		     System.out.println("plazo Fecha formalizacion de credito : "+credito.getPlazo());
+		     
+		     
+		     if(credito.getAbonos() == null){
+		    	 System.out.println("abonos del credito null");
+		     }
+		     Abono abono = (Abono) credito.getAbonos().get(0);
+		     System.out.println("Monto abono : "+abono.getMonto());
+		     System.out.println("Fecha abono : "+abono.getDate().toString());
              
              
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+
+		catch (IOException e) {
 			e.printStackTrace();
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (JAXBException e) {
 			e.printStackTrace();
-		}		
+		}
 		
-		// we are using getTimeInMillis to avoid server cached image
-
 		return "loaded: " + ufile.name + "- type: " + ufile.type ;
 
+	}
+	
+	
+	public Util getUtil() {
+		return util;
+	}
+
+	public void setUtil(Util util) {
+		this.util = util;
 	}
 }
